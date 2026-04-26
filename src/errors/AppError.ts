@@ -1,7 +1,12 @@
-export class AppError extends Error {
+import { status } from "http-status";
+class AppError extends Error {
   public statusCode: number;
 
-  constructor(message: string, statusCode: number, stack: string = "") {
+  constructor(
+    statusCode: number = status.INTERNAL_SERVER_ERROR,
+    message: string,
+    stack: string = "",
+  ) {
     super(message);
     this.statusCode = statusCode;
     if (stack) {
@@ -11,3 +16,5 @@ export class AppError extends Error {
     }
   }
 }
+
+export default AppError;

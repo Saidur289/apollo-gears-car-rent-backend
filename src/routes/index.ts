@@ -1,11 +1,12 @@
 import { Router } from "express";
+import { AuthRoutes } from "../modules/Auth/auth.route";
 
 const router = Router();
 const moduleRoutes: { path: string; router: Router }[] = [
-  // {
-  // //   path: "/users",
-  //     // router: require("./users").default,
-  // },
+  {
+    path: "/auth",
+    router: AuthRoutes,
+  },
 ];
 
 moduleRoutes.forEach((route) => {

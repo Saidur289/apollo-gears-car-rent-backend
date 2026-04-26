@@ -9,7 +9,47 @@
 * 🟢 You can import this file directly.
 */
 
+export const Role = {
+  ADMIN: 'ADMIN',
+  USER: 'USER',
+  DRIVER: 'DRIVER'
+} as const
+
+export type Role = (typeof Role)[keyof typeof Role]
 
 
-// This file is empty because there are no enums in the schema.
-export {}
+export const FuelType = {
+  OCTANE: 'OCTANE',
+  HYBRID: 'HYBRID',
+  ELECTRIC: 'ELECTRIC',
+  DIESEL: 'DIESEL',
+  PETROL: 'PETROL'
+} as const
+
+export type FuelType = (typeof FuelType)[keyof typeof FuelType]
+
+
+export const Condition = {
+  NEW: 'NEW',
+  USED: 'USED'
+} as const
+
+export type Condition = (typeof Condition)[keyof typeof Condition]
+
+
+export const RentStatus = {
+  PENDING: 'PENDING',
+  ONGOING: 'ONGOING',
+  COMPLETED: 'COMPLETED'
+} as const
+
+export type RentStatus = (typeof RentStatus)[keyof typeof RentStatus]
+
+
+export const BidStatus = {
+  PENDING: 'PENDING',
+  ACCEPTED: 'ACCEPTED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type BidStatus = (typeof BidStatus)[keyof typeof BidStatus]

@@ -87,7 +87,8 @@ model Rent {
   createdAt     DateTime   @default(now())
   updatedAt     DateTime   @updatedAt
 
-  @@index([carId, userId])
+  @@index([carId])
+  @@index([userId])
   @@map("rents")
 }
 
@@ -103,6 +104,8 @@ model Bid {
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
 
-  @@index([rentId, driverId])
+  @@index([rentId])
+  @@index([driverId])
+  @@index([status])
   @@map("bids")
 }
