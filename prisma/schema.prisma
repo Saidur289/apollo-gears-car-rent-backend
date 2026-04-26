@@ -1,0 +1,108 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  ADMIN
+  USER
+  DRIVER
+}
+
+enum FuelType {
+  OCTANE
+  HYBRID
+  ELECTRIC
+  DIESEL
+  PETROL
+}
+
+enum Condition {
+  NEW
+  USED
+}
+
+enum RentStatus {
+  PENDING
+  ONGOING
+  COMPLETED
+}
+
+enum BidStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  name         String?
+  password     String?
+  role         Role     @default(USER)
+  profileImage String?
+  rating       Float    @default(0)
+  rents        Rent[]
+  bids         Bid[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([email, createdAt])
+  @@map("users")
+}
+
+model Car {
+  id                String    @id @default(uuid())
+  name              String
+  brand             String
+  model             String
+  image             String?
+  fuelType          FuelType
+  passengerCapacity Int
+  color             String
+  condition         Condition
+  rating            Float     @default(0)
+  rents             Rent[]
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  @@index([id])
+  @@map("cars")
+}
+
+model Rent {
+  id            String     @id @default(uuid())
+  status        RentStatus @default(PENDING)
+  startingPoint String
+  destination   String
+  user          User       @relation(fields: [userId], references: [id])
+  userId        String
+  car           Car        @relation(fields: [carId], references: [id])
+  carId         String
+  bids          Bid[]
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+
+  @@index([carId, userId])
+  @@map("rents")
+}
+
+model Bid {
+  id             String    @id @default(uuid())
+  amount         Float
+  status         BidStatus @default(PENDING)
+  driverLocation String
+  rent           Rent      @relation(fields: [rentId], references: [id], onDelete: Cascade)
+  rentId         String
+  driver         User      @relation(fields: [driverId], references: [id], onDelete: Cascade)
+  driverId       String
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@index([rentId, driverId])
+  @@map("bids")
+}
