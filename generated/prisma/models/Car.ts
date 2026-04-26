@@ -48,6 +48,7 @@ export type CarMinAggregateOutputType = {
   condition: $Enums.Condition | null
   rating: number | null
   createdAt: Date | null
+  isDeleted: boolean | null
   updatedAt: Date | null
 }
 
@@ -63,6 +64,7 @@ export type CarMaxAggregateOutputType = {
   condition: $Enums.Condition | null
   rating: number | null
   createdAt: Date | null
+  isDeleted: boolean | null
   updatedAt: Date | null
 }
 
@@ -78,6 +80,7 @@ export type CarCountAggregateOutputType = {
   condition: number
   rating: number
   createdAt: number
+  isDeleted: number
   updatedAt: number
   _all: number
 }
@@ -105,6 +108,7 @@ export type CarMinAggregateInputType = {
   condition?: true
   rating?: true
   createdAt?: true
+  isDeleted?: true
   updatedAt?: true
 }
 
@@ -120,6 +124,7 @@ export type CarMaxAggregateInputType = {
   condition?: true
   rating?: true
   createdAt?: true
+  isDeleted?: true
   updatedAt?: true
 }
 
@@ -135,6 +140,7 @@ export type CarCountAggregateInputType = {
   condition?: true
   rating?: true
   createdAt?: true
+  isDeleted?: true
   updatedAt?: true
   _all?: true
 }
@@ -237,6 +243,7 @@ export type CarGroupByOutputType = {
   condition: $Enums.Condition
   rating: number
   createdAt: Date
+  isDeleted: boolean
   updatedAt: Date
   _count: CarCountAggregateOutputType | null
   _avg: CarAvgAggregateOutputType | null
@@ -275,6 +282,7 @@ export type CarWhereInput = {
   condition?: Prisma.EnumConditionFilter<"Car"> | $Enums.Condition
   rating?: Prisma.FloatFilter<"Car"> | number
   createdAt?: Prisma.DateTimeFilter<"Car"> | Date | string
+  isDeleted?: Prisma.BoolFilter<"Car"> | boolean
   updatedAt?: Prisma.DateTimeFilter<"Car"> | Date | string
   rents?: Prisma.RentListRelationFilter
 }
@@ -291,6 +299,7 @@ export type CarOrderByWithRelationInput = {
   condition?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   rents?: Prisma.RentOrderByRelationAggregateInput
 }
@@ -310,6 +319,7 @@ export type CarWhereUniqueInput = Prisma.AtLeast<{
   condition?: Prisma.EnumConditionFilter<"Car"> | $Enums.Condition
   rating?: Prisma.FloatFilter<"Car"> | number
   createdAt?: Prisma.DateTimeFilter<"Car"> | Date | string
+  isDeleted?: Prisma.BoolFilter<"Car"> | boolean
   updatedAt?: Prisma.DateTimeFilter<"Car"> | Date | string
   rents?: Prisma.RentListRelationFilter
 }, "id">
@@ -326,6 +336,7 @@ export type CarOrderByWithAggregationInput = {
   condition?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.CarCountOrderByAggregateInput
   _avg?: Prisma.CarAvgOrderByAggregateInput
@@ -349,6 +360,7 @@ export type CarScalarWhereWithAggregatesInput = {
   condition?: Prisma.EnumConditionWithAggregatesFilter<"Car"> | $Enums.Condition
   rating?: Prisma.FloatWithAggregatesFilter<"Car"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Car"> | Date | string
+  isDeleted?: Prisma.BoolWithAggregatesFilter<"Car"> | boolean
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Car"> | Date | string
 }
 
@@ -364,6 +376,7 @@ export type CarCreateInput = {
   condition: $Enums.Condition
   rating?: number
   createdAt?: Date | string
+  isDeleted?: boolean
   updatedAt?: Date | string
   rents?: Prisma.RentCreateNestedManyWithoutCarInput
 }
@@ -380,6 +393,7 @@ export type CarUncheckedCreateInput = {
   condition: $Enums.Condition
   rating?: number
   createdAt?: Date | string
+  isDeleted?: boolean
   updatedAt?: Date | string
   rents?: Prisma.RentUncheckedCreateNestedManyWithoutCarInput
 }
@@ -396,6 +410,7 @@ export type CarUpdateInput = {
   condition?: Prisma.EnumConditionFieldUpdateOperationsInput | $Enums.Condition
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   rents?: Prisma.RentUpdateManyWithoutCarNestedInput
 }
@@ -412,6 +427,7 @@ export type CarUncheckedUpdateInput = {
   condition?: Prisma.EnumConditionFieldUpdateOperationsInput | $Enums.Condition
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   rents?: Prisma.RentUncheckedUpdateManyWithoutCarNestedInput
 }
@@ -428,6 +444,7 @@ export type CarCreateManyInput = {
   condition: $Enums.Condition
   rating?: number
   createdAt?: Date | string
+  isDeleted?: boolean
   updatedAt?: Date | string
 }
 
@@ -443,6 +460,7 @@ export type CarUpdateManyMutationInput = {
   condition?: Prisma.EnumConditionFieldUpdateOperationsInput | $Enums.Condition
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -458,6 +476,7 @@ export type CarUncheckedUpdateManyInput = {
   condition?: Prisma.EnumConditionFieldUpdateOperationsInput | $Enums.Condition
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -473,6 +492,7 @@ export type CarCountOrderByAggregateInput = {
   condition?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
@@ -493,6 +513,7 @@ export type CarMaxOrderByAggregateInput = {
   condition?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
@@ -508,6 +529,7 @@ export type CarMinOrderByAggregateInput = {
   condition?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
@@ -537,6 +559,10 @@ export type EnumConditionFieldUpdateOperationsInput = {
   set?: $Enums.Condition
 }
 
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
+}
+
 export type CarCreateNestedOneWithoutRentsInput = {
   create?: Prisma.XOR<Prisma.CarCreateWithoutRentsInput, Prisma.CarUncheckedCreateWithoutRentsInput>
   connectOrCreate?: Prisma.CarCreateOrConnectWithoutRentsInput
@@ -563,6 +589,7 @@ export type CarCreateWithoutRentsInput = {
   condition: $Enums.Condition
   rating?: number
   createdAt?: Date | string
+  isDeleted?: boolean
   updatedAt?: Date | string
 }
 
@@ -578,6 +605,7 @@ export type CarUncheckedCreateWithoutRentsInput = {
   condition: $Enums.Condition
   rating?: number
   createdAt?: Date | string
+  isDeleted?: boolean
   updatedAt?: Date | string
 }
 
@@ -609,6 +637,7 @@ export type CarUpdateWithoutRentsInput = {
   condition?: Prisma.EnumConditionFieldUpdateOperationsInput | $Enums.Condition
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -624,6 +653,7 @@ export type CarUncheckedUpdateWithoutRentsInput = {
   condition?: Prisma.EnumConditionFieldUpdateOperationsInput | $Enums.Condition
   rating?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -670,6 +700,7 @@ export type CarSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = ru
   condition?: boolean
   rating?: boolean
   createdAt?: boolean
+  isDeleted?: boolean
   updatedAt?: boolean
   rents?: boolean | Prisma.Car$rentsArgs<ExtArgs>
   _count?: boolean | Prisma.CarCountOutputTypeDefaultArgs<ExtArgs>
@@ -687,6 +718,7 @@ export type CarSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extension
   condition?: boolean
   rating?: boolean
   createdAt?: boolean
+  isDeleted?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["car"]>
 
@@ -702,6 +734,7 @@ export type CarSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extension
   condition?: boolean
   rating?: boolean
   createdAt?: boolean
+  isDeleted?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["car"]>
 
@@ -717,10 +750,11 @@ export type CarSelectScalar = {
   condition?: boolean
   rating?: boolean
   createdAt?: boolean
+  isDeleted?: boolean
   updatedAt?: boolean
 }
 
-export type CarOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "brand" | "model" | "image" | "fuelType" | "passengerCapacity" | "color" | "condition" | "rating" | "createdAt" | "updatedAt", ExtArgs["result"]["car"]>
+export type CarOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "brand" | "model" | "image" | "fuelType" | "passengerCapacity" | "color" | "condition" | "rating" | "createdAt" | "isDeleted" | "updatedAt", ExtArgs["result"]["car"]>
 export type CarInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   rents?: boolean | Prisma.Car$rentsArgs<ExtArgs>
   _count?: boolean | Prisma.CarCountOutputTypeDefaultArgs<ExtArgs>
@@ -745,6 +779,7 @@ export type $CarPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
     condition: $Enums.Condition
     rating: number
     createdAt: Date
+    isDeleted: boolean
     updatedAt: Date
   }, ExtArgs["result"]["car"]>
   composites: {}
@@ -1181,6 +1216,7 @@ export interface CarFieldRefs {
   readonly condition: Prisma.FieldRef<"Car", 'Condition'>
   readonly rating: Prisma.FieldRef<"Car", 'Float'>
   readonly createdAt: Prisma.FieldRef<"Car", 'DateTime'>
+  readonly isDeleted: Prisma.FieldRef<"Car", 'Boolean'>
   readonly updatedAt: Prisma.FieldRef<"Car", 'DateTime'>
 }
     

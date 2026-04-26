@@ -17,11 +17,16 @@ export interface AuthenticatedRequest extends Request {
 
 const auth = (...requiredRoles: Role[]) =>
   catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const token = req.headers.authorization?.replace('Bearer ', '');
+    const authHeader = req.headers.authorization;
 
-    if (!token) {
+    if (!authHeader) {
       throw new AppError(httpStatus.UNAUTHORIZED, 'Access token is required');
     }
+
+    // Extract token from "Bearer <token>" format
+    const token = authHeader.startsWith('Bearer ') 
+      ? authHeader.slice(7) 
+      : authHeader;
 
     try {
       // Verify token
@@ -50,6 +55,9 @@ const auth = (...requiredRoles: Role[]) =>
 
       next();
     } catch (error) {
+      if (error instanceof AppError) {
+        throw error;
+      }
       throw new AppError(httpStatus.UNAUTHORIZED, 'Invalid access token');
     }
   });

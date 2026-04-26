@@ -132,7 +132,7 @@ const refreshAccessToken = async (
       throw new AppError(httpStatus.NOT_FOUND, "User not found");
     }
 
-    // Create new access token
+    // Create new tokens
     const jwtPayload = {
       id: user.id,
       email: user.email,
@@ -140,8 +140,9 @@ const refreshAccessToken = async (
     };
 
     const accessToken = createAccessToken(jwtPayload);
+    const newRefreshToken = createRefreshToken(jwtPayload);
 
-    return { accessToken };
+    return { accessToken, refreshToken: newRefreshToken };
   } catch (error) {
     throw new AppError(httpStatus.UNAUTHORIZED, "Invalid refresh token");
   }

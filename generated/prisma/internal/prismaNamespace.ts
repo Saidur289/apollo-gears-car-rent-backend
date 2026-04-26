@@ -769,6 +769,7 @@ export const CarScalarFieldEnum = {
   condition: 'condition',
   rating: 'rating',
   createdAt: 'createdAt',
+  isDeleted: 'isDeleted',
   updatedAt: 'updatedAt'
 } as const
 
@@ -928,6 +929,13 @@ export type EnumConditionFieldRefInput<$PrismaModel> = FieldRefInputType<$Prisma
  * Reference to a field of type 'Condition[]'
  */
 export type ListEnumConditionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Condition[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 

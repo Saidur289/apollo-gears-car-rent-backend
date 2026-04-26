@@ -100,6 +100,7 @@ export const CarScalarFieldEnum = {
   condition: 'condition',
   rating: 'rating',
   createdAt: 'createdAt',
+  isDeleted: 'isDeleted',
   updatedAt: 'updatedAt'
 } as const
 

@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { ZodError } from "zod";
 
-import { AppError } from "../errors/AppError";
+import AppError from "../errors/AppError";
 import { Prisma } from "../../generated/prisma/client";
 import { handleZodError } from "../errors/HandleZodError";
 import { handlePrismaError } from "../errors/handlePrismaError";
@@ -61,8 +61,8 @@ export const globalErrorHandler = (
     success: false,
     message: message,
     errorSources,
-    stack: config.NODE_ENV === "development" ? stack : undefined,
-    error: config.NODE_ENV === "development" ? err : undefined,
+    stack: config.node_env === "development" ? stack : undefined,
+    error: config.node_env === "development" ? err : undefined,
   };
 
   res.status(statusCode).json(errorResponse);

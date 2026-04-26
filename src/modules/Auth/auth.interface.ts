@@ -1,4 +1,4 @@
-import { Role } from '../../../generated/prisma/enums';
+import { Role } from "../../../generated/prisma/enums";
 
 export type TRegisterUser = {
   name: string;
@@ -30,4 +30,5 @@ export type TAuthResponse = {
 
 export type TRefreshTokenResponse = {
   accessToken: string;
+  refreshToken: string;
 };
