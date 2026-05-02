@@ -1,42 +1,25 @@
-import { Response } from 'express';
-import httpStatus from 'http-status';
-
-type TMeta = {
-  page?: number;
-  limit?: number;
-  total?: number;
-  totalPages?: number;
-};
+import { Response } from "express";
 
 type TResponse<T> = {
+  statusCode: number;
   success: boolean;
-  message: string;
-  meta?: TMeta;
-  data?: T;
+  message?: string;
+  data: T;
+  meta?: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPage: number;
+  };
 };
 
-const sendResponse = <T>(
-  res: Response,
-  statusCode: number,
-  success: boolean,
-  message: string,
-  data?: T,
-  meta?: TMeta,
-): void => {
-  const response: TResponse<T> = {
-    success,
-    message,
-  };
-
-  if (data !== undefined) {
-    response.data = data;
-  }
-
-  if (meta !== undefined) {
-    response.meta = meta;
-  }
-
-  res.status(statusCode).json(response);
+const sendResponse = <T>(res: Response, data: TResponse<T>) => {
+  res.status(data?.statusCode).json({
+    success: data.success,
+    message: data.message,
+    data: data.data,
+    meta: data.meta && data.meta,
+  });
 };
 
 export default sendResponse;

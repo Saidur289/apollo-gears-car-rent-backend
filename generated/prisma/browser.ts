@@ -37,3 +37,8 @@ export type Rent = Prisma.RentModel
  * 
  */
 export type Bid = Prisma.BidModel
+/**
+ * Model Payment
+ * 
+ */
+export type Payment = Prisma.PaymentModel

@@ -16,4 +16,5 @@ export default {
   bcrypt_salt_rounds: process.env.BCRYPT_SALT_ROUND,
   ADMIN_EMAIL: process.env.ADMIN_EMAIL,
   ADMIN_PASSWORD: process.env.ADMIN_PASSWORD,
+  STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
 };
