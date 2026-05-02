@@ -8,12 +8,13 @@ const createPaymentIntent = catchAsync(async (req: Request, res: Response) => {
   // Implementation will be in the service layer
   const payload = req.body;
   const result = await PaymentService.createPaymentIntent(payload);
-  sendResponse(res, {
-    statusCode: status.OK,
-    success: true,
-    message: "Payment intent created successfully",
-    data: result,
-  });
+  sendResponse(
+    res,
+    status.OK,
+    true,
+    "Payment intent created successfully",
+    result,
+  );
 });
 
 const confirmPayment = catchAsync(async (req: Request, res: Response) => {
@@ -21,12 +22,7 @@ const confirmPayment = catchAsync(async (req: Request, res: Response) => {
   const { rentId, transactionId } = req.body;
 
   const result = await PaymentService.confirmPayment(rentId, transactionId);
-  sendResponse(res, {
-    statusCode: status.OK,
-    success: true,
-    message: "Payment confirmed successfully",
-    data: result,
-  });
+  sendResponse(res, status.OK, true, "Payment confirmed successfully", result);
 });
 
 export const PaymentController = {

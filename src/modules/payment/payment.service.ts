@@ -8,7 +8,6 @@ import {
 import { prisma } from "../../lib/prisma";
 import AppError from "../../errors/AppError";
 import status from "http-status";
-import e from "express";
 
 const stripe = new Stripe(config.STRIPE_SECRET_KEY as string, {
   apiVersion: "2023-10-16" as any,

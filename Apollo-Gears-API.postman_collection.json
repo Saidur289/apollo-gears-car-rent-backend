@@ -1,7 +1,7 @@
 {
   "info": {
     "name": "Apollo Gears API",
-    "description": "Collection for Apollo Gears authentication API with automatic token management",
+    "description": "Complete collection for Apollo Gears API with automatic token management and data handling",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
@@ -9,7 +9,7 @@
       "name": "Auth",
       "item": [
         {
-          "name": "Register User",
+          "name": "Register Admin",
           "event": [
             {
               "listen": "test",
@@ -18,52 +18,10 @@
                   "if (pm.response.code === 200 || pm.response.code === 201) {",
                   "    const responseData = pm.response.json();",
                   "    if (responseData.data) {",
-                  "        pm.environment.set('accessToken', responseData.data.accessToken);",
-                  "        pm.environment.set('refreshToken', responseData.data.refreshToken);",
-                  "        pm.environment.set('userId', responseData.data.user.id);",
-                  "        pm.environment.set('userEmail', responseData.data.user.email);",
-                  "        console.log('Tokens saved to environment');",
-                  "    }",
-                  "}",
-                  ""
-                ]
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"password\": \"Password123\"\n}"
-            },
-            "url": {
-              "raw": "{{baseUrl}}/auth/register",
-              "host": ["{{baseUrl}}"],
-              "path": ["auth", "register"]
-            }
-          }
-        },
-        {
-          "name": "Login User",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "if (pm.response.code === 200) {",
-                  "    const responseData = pm.response.json();",
-                  "    if (responseData.data) {",
-                  "        pm.environment.set('accessToken', responseData.data.accessToken);",
-                  "        pm.environment.set('refreshToken', responseData.data.refreshToken);",
-                  "        pm.environment.set('userId', responseData.data.user.id);",
-                  "        pm.environment.set('userEmail', responseData.data.user.email);",
-                  "        console.log('Login successful, tokens updated');",
+                  "        pm.environment.set('adminToken', responseData.data.accessToken);",
+                  "        pm.environment.set('adminRefreshToken', responseData.data.refreshToken);",
+                  "        pm.environment.set('adminId', responseData.data.user.id);",
+                  "        console.log('Admin registered successfully, admin token saved');",
                   "    }",
                   "}"
                 ]
@@ -80,7 +38,202 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"email\": \"john@example.com\",\n  \"password\": \"Password123\"\n}"
+              "raw": "{\n  \"name\": \"Admin User\",\n  \"email\": \"{{adminEmail}}\",\n  \"password\": \"{{adminPassword}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Register Driver",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200 || pm.response.code === 201) {",
+                  "    const responseData = pm.response.json();",
+                  "    if (responseData.data) {",
+                  "        pm.environment.set('driverToken', responseData.data.accessToken);",
+                  "        pm.environment.set('driverRefreshToken', responseData.data.refreshToken);",
+                  "        pm.environment.set('driverId', responseData.data.user.id);",
+                  "        console.log('Driver registered successfully, driver token saved');",
+                  "    }",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Driver User\",\n  \"email\": \"{{driverEmail}}\",\n  \"password\": \"{{driverPassword}}\",\n  \"role\": \"DRIVER\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Register User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200 || pm.response.code === 201) {",
+                  "    const responseData = pm.response.json();",
+                  "    if (responseData.data) {",
+                  "        pm.environment.set('userToken', responseData.data.accessToken);",
+                  "        pm.environment.set('userRefreshToken', responseData.data.refreshToken);",
+                  "        pm.environment.set('userId', responseData.data.user.id);",
+                  "        console.log('User registered successfully, user token saved');",
+                  "    }",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Regular User\",\n  \"email\": \"{{userEmail}}\",\n  \"password\": \"{{userPassword}}\",\n  \"role\": \"USER\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "register"]
+            }
+          }
+        },
+        {
+          "name": "Login Admin",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    const responseData = pm.response.json();",
+                  "    if (responseData.data) {",
+                  "        pm.environment.set('adminToken', responseData.data.accessToken);",
+                  "        pm.environment.set('adminRefreshToken', responseData.data.refreshToken);",
+                  "        pm.environment.set('adminId', responseData.data.user.id);",
+                  "        console.log('Admin login successful, admin token updated');",
+                  "    }",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{adminEmail}}\",\n  \"password\": \"{{adminPassword}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Login Driver",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    const responseData = pm.response.json();",
+                  "    if (responseData.data) {",
+                  "        pm.environment.set('driverToken', responseData.data.accessToken);",
+                  "        pm.environment.set('driverRefreshToken', responseData.data.refreshToken);",
+                  "        pm.environment.set('driverId', responseData.data.user.id);",
+                  "        console.log('Driver login successful, driver token updated');",
+                  "    }",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{driverEmail}}\",\n  \"password\": \"{{driverPassword}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["auth", "login"]
+            }
+          }
+        },
+        {
+          "name": "Login Regular User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    const responseData = pm.response.json();",
+                  "    if (responseData.data) {",
+                  "        pm.environment.set('userToken', responseData.data.accessToken);",
+                  "        pm.environment.set('userRefreshToken', responseData.data.refreshToken);",
+                  "        pm.environment.set('userId', responseData.data.user.id);",
+                  "        console.log('User login successful, user token updated');",
+                  "    }",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{userEmail}}\",\n  \"password\": \"{{userPassword}}\"\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/auth/login",
@@ -138,19 +291,239 @@
       ]
     },
     {
-      "name": "Protected Route Example",
+      "name": "Cars",
       "item": [
         {
-          "name": "Sample Protected Request",
+          "name": "Create Car (Admin)",
           "event": [
             {
               "listen": "prerequest",
               "script": {
                 "exec": [
-                  "// Set authorization header with access token",
-                  "const token = pm.environment.get('accessToken');",
+                  "const token = pm.environment.get('adminToken');",
                   "if (!token) {",
-                  "    console.warn('No access token found. Please login first.');",
+                  "    console.warn('No admin token found. Please login as admin first.');",
+                  "} else {",
+                  "    pm.request.headers.add({",
+                  "        key: 'Authorization',",
+                  "        value: 'Bearer ' + token",
+                  "    });",
+                  "}"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200 || pm.response.code === 201) {",
+                  "    const responseData = pm.response.json();",
+                  "    if (responseData.data) {",
+                  "        pm.environment.set('carId', responseData.data.id);",
+                  "        console.log('Car created successfully, ID saved to environment');",
+                  "    }",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Toyota Camry\",\n  \"brand\": \"Toyota\",\n  \"model\": \"Camry 2023\",\n  \"image\": \"https://example.com/car-image.jpg\",\n  \"fuelType\": \"PETROL\",\n  \"passengerCapacity\": 5,\n  \"color\": \"White\",\n  \"condition\": \"NEW\",\n  \"rating\": 4.5\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/cars",
+              "host": ["{{baseUrl}}"],
+              "path": ["cars"]
+            }
+          }
+        },
+        {
+          "name": "Get All Cars",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/cars",
+              "host": ["{{baseUrl}}"],
+              "path": ["cars"]
+            }
+          }
+        },
+        {
+          "name": "Get Car by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/cars/{{carId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["cars", "{{carId}}"]
+            }
+          }
+        },
+        {
+          "name": "Update Car (Admin)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "const token = pm.environment.get('adminToken');",
+                  "if (!token) {",
+                  "    console.warn('No admin token found. Please login as admin first.');",
+                  "} else {",
+                  "    pm.request.headers.add({",
+                  "        key: 'Authorization',",
+                  "        value: 'Bearer ' + token",
+                  "    });",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Toyota Camry\",\n  \"color\": \"Black\",\n  \"rating\": 4.8\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/cars/{{carId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["cars", "{{carId}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete Car (Admin)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "const token = pm.environment.get('adminToken');",
+                  "if (!token) {",
+                  "    console.warn('No admin token found. Please login as admin first.');",
+                  "} else {",
+                  "    pm.request.headers.add({",
+                  "        key: 'Authorization',",
+                  "        value: 'Bearer ' + token",
+                  "    });",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/cars/{{carId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["cars", "{{carId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Rents",
+      "item": [
+        {
+          "name": "Create Rent",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "const token = pm.environment.get('userToken');",
+                  "if (!token) {",
+                  "    console.warn('No user token found. Please login as user first.');",
+                  "} else {",
+                  "    pm.request.headers.add({",
+                  "        key: 'Authorization',",
+                  "        value: 'Bearer ' + token",
+                  "    });",
+                  "}"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200 || pm.response.code === 201) {",
+                  "    const responseData = pm.response.json();",
+                  "    if (responseData.data) {",
+                  "        pm.environment.set('rentId', responseData.data.id);",
+                  "        console.log('Rent created successfully, ID saved to environment');",
+                  "    }",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"startingPoint\": \"Dhaka Airport\",\n  \"destination\": \"Gulshan\",\n  \"carId\": \"{{carId}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/rents",
+              "host": ["{{baseUrl}}"],
+              "path": ["rents"]
+            }
+          }
+        },
+        {
+          "name": "Get My Rents",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "const token = pm.environment.get('userToken');",
+                  "if (!token) {",
+                  "    console.warn('No user token found. Please login as user first.');",
                   "} else {",
                   "    pm.request.headers.add({",
                   "        key: 'Authorization',",
@@ -166,14 +539,499 @@
             "header": [
               {
                 "key": "Authorization",
-                "value": "Bearer {{accessToken}}",
-                "type": "text"
+                "value": "Bearer {{accessToken}}"
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/protected-endpoint",
+              "raw": "{{baseUrl}}/rents?page=1&limit=10&status=PENDING",
               "host": ["{{baseUrl}}"],
-              "path": ["protected-endpoint"]
+              "path": ["rents"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "status",
+                  "value": "PENDING"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Rent by ID",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "const token = pm.environment.get('userToken');",
+                  "if (!token) {",
+                  "    console.warn('No user token found. Please login as user first.');",
+                  "} else {",
+                  "    pm.request.headers.add({",
+                  "        key: 'Authorization',",
+                  "        value: 'Bearer ' + token",
+                  "    });",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/rents/{{rentId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["rents", "{{rentId}}"]
+            }
+          }
+        },
+        {
+          "name": "Update Rent Status",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "const token = pm.environment.get('userToken');",
+                  "if (!token) {",
+                  "    console.warn('No user token found. Please login as user first.');",
+                  "} else {",
+                  "    pm.request.headers.add({",
+                  "        key: 'Authorization',",
+                  "        value: 'Bearer ' + token",
+                  "    });",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"ONGOING\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/rents/{{rentId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["rents", "{{rentId}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete Rent",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "const token = pm.environment.get('userToken');",
+                  "if (!token) {",
+                  "    console.warn('No user token found. Please login as user first.');",
+                  "} else {",
+                  "    pm.request.headers.add({",
+                  "        key: 'Authorization',",
+                  "        value: 'Bearer ' + token",
+                  "    });",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/rents/{{rentId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["rents", "{{rentId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Bids",
+      "item": [
+        {
+          "name": "Create Bid (Driver)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "const token = pm.environment.get('driverToken');",
+                  "if (!token) {",
+                  "    console.warn('No driver token found. Please login as driver first.');",
+                  "} else {",
+                  "    pm.request.headers.add({",
+                  "        key: 'Authorization',",
+                  "        value: 'Bearer ' + token",
+                  "    });",
+                  "}"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200 || pm.response.code === 201) {",
+                  "    const responseData = pm.response.json();",
+                  "    if (responseData.data) {",
+                  "        pm.environment.set('bidId', responseData.data.id);",
+                  "        console.log('Bid created successfully, ID saved to environment');",
+                  "    }",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": 1500.00,\n  \"driverLocation\": \"Uttara\",\n  \"rentId\": \"{{rentId}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/bids",
+              "host": ["{{baseUrl}}"],
+              "path": ["bids"]
+            }
+          }
+        },
+        {
+          "name": "Get Bids by Rent",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "const token = pm.environment.get('userToken');",
+                  "if (!token) {",
+                  "    console.warn('No user token found. Please login as user first.');",
+                  "} else {",
+                  "    pm.request.headers.add({",
+                  "        key: 'Authorization',",
+                  "        value: 'Bearer ' + token",
+                  "    });",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/bids/rent/{{rentId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["bids", "rent", "{{rentId}}"]
+            }
+          }
+        },
+        {
+          "name": "Get Bid by ID",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "const token = pm.environment.get('userToken');",
+                  "if (!token) {",
+                  "    console.warn('No user token found. Please login as user first.');",
+                  "} else {",
+                  "    pm.request.headers.add({",
+                  "        key: 'Authorization',",
+                  "        value: 'Bearer ' + token",
+                  "    });",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/bids/{{bidId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["bids", "{{bidId}}"]
+            }
+          }
+        },
+        {
+          "name": "Accept Bid",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "const token = pm.environment.get('userToken');",
+                  "if (!token) {",
+                  "    console.warn('No user token found. Please login as user first.');",
+                  "} else {",
+                  "    pm.request.headers.add({",
+                  "        key: 'Authorization',",
+                  "        value: 'Bearer ' + token",
+                  "    });",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/bids/{{bidId}}/accept",
+              "host": ["{{baseUrl}}"],
+              "path": ["bids", "{{bidId}}", "accept"]
+            }
+          }
+        },
+        {
+          "name": "Reject Bid",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "const token = pm.environment.get('accessToken');",
+                  "if (!token) {",
+                  "    console.warn('No access token found. Please login first.');",
+                  "} else {",
+                  "    pm.request.headers.add({",
+                  "        key: 'Authorization',",
+                  "        value: 'Bearer ' + token",
+                  "    });",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/bids/{{bidId}}/reject",
+              "host": ["{{baseUrl}}"],
+              "path": ["bids", "{{bidId}}", "reject"]
+            }
+          }
+        },
+        {
+          "name": "Delete Bid (Driver)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "const token = pm.environment.get('accessToken');",
+                  "if (!token) {",
+                  "    console.warn('No access token found. Please login first.');",
+                  "} else {",
+                  "    pm.request.headers.add({",
+                  "        key: 'Authorization',",
+                  "        value: 'Bearer ' + token",
+                  "    });",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/bids/{{bidId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["bids", "{{bidId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Payment",
+      "item": [
+        {
+          "name": "Create Payment Intent",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "const token = pm.environment.get('accessToken');",
+                  "if (!token) {",
+                  "    console.warn('No access token found. Please login first.');",
+                  "} else {",
+                  "    pm.request.headers.add({",
+                  "        key: 'Authorization',",
+                  "        value: 'Bearer ' + token",
+                  "    });",
+                  "}"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    const responseData = pm.response.json();",
+                  "    if (responseData.data) {",
+                  "        pm.environment.set('paymentIntentId', responseData.data.id);",
+                  "        pm.environment.set('transactionId', responseData.data.transactionId);",
+                  "        console.log('Payment intent created successfully');",
+                  "    }",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rentId\": \"{{rentId}}\",\n  \"amount\": 1500.00\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/payment/create-payment-intent",
+              "host": ["{{baseUrl}}"],
+              "path": ["payment", "create-payment-intent"]
+            }
+          }
+        },
+        {
+          "name": "Confirm Payment",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "const token = pm.environment.get('accessToken');",
+                  "if (!token) {",
+                  "    console.warn('No access token found. Please login first.');",
+                  "} else {",
+                  "    pm.request.headers.add({",
+                  "        key: 'Authorization',",
+                  "        value: 'Bearer ' + token",
+                  "    });",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rentId\": \"{{rentId}}\",\n  \"transactionId\": \"{{transactionId}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/payment/confirm-payment",
+              "host": ["{{baseUrl}}"],
+              "path": ["payment", "confirm-payment"]
             }
           }
         }
@@ -203,6 +1061,76 @@
     },
     {
       "key": "userEmail",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "carId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "rentId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "bidId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "paymentIntentId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "transactionId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "adminEmail",
+      "value": "admin@apollogears.com",
+      "type": "string"
+    },
+    {
+      "key": "adminPassword",
+      "value": "Admin123!",
+      "type": "string"
+    },
+    {
+      "key": "adminToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "driverEmail",
+      "value": "driver@apollogears.com",
+      "type": "string"
+    },
+    {
+      "key": "driverPassword",
+      "value": "Driver123!",
+      "type": "string"
+    },
+    {
+      "key": "driverToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "userEmail",
+      "value": "user@apollogears.com",
+      "type": "string"
+    },
+    {
+      "key": "userPassword",
+      "value": "User123!",
+      "type": "string"
+    },
+    {
+      "key": "userToken",
       "value": "",
       "type": "string"
     }

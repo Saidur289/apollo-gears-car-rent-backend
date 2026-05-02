@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { Role } from "../../../generated/prisma/enums";
 
 const registerValidationSchema = z.object({
   body: z.object({
@@ -9,6 +10,7 @@ const registerValidationSchema = z.object({
     password: z
       .string({ error: "Password is required" })
       .min(6, "Password must be at least 6 characters"),
+    role: z.enum([Role.USER, Role.DRIVER]).optional(),
   }),
 });
 

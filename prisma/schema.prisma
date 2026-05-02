@@ -80,9 +80,9 @@ model Rent {
   status        RentStatus @default(PENDING)
   startingPoint String
   destination   String
-  user          User       @relation(fields: [userId], references: [id])
+  user          User       @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   userId        String
-  car           Car        @relation(fields: [carId], references: [id])
+  car           Car        @relation(fields: [carId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   carId         String
   bids          Bid[]
   payment       Payment?

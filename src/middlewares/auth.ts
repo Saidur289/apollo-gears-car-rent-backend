@@ -17,7 +17,8 @@ export interface AuthenticatedRequest extends Request {
 
 const auth = (...requiredRoles: Role[]) =>
   catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const token = req.headers.authorization;
+    const token =
+      req.cookies.accessToken || req.headers.authorization?.split(" ")[1];
 
     if (!token) {
       throw new AppError(httpStatus.UNAUTHORIZED, "Access token is required");

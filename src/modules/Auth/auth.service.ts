@@ -16,7 +16,7 @@ import {
 } from "./auth.interface";
 
 const registerUser = async (payload: TRegisterUser): Promise<TAuthResponse> => {
-  const { name, email, password } = payload;
+  const { name, email, password, role } = payload;
 
   // Check if user already exists
   const existingUser = await prisma.user.findUnique({
@@ -36,12 +36,16 @@ const registerUser = async (payload: TRegisterUser): Promise<TAuthResponse> => {
     Number(config.bcrypt_salt_rounds) || 12,
   );
 
+  // 👉 role set (default USER)
+  const userRole = role === "DRIVER" ? "DRIVER" : "USER";
+
   // Create user
   const user = await prisma.user.create({
     data: {
       name,
       email,
       password: hashedPassword,
+      role: userRole, // 👈 এখানে set করলাম
     },
     select: {
       id: true,
